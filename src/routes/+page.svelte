@@ -118,8 +118,7 @@
 	<p>
 		Imagine an intervention that helps users identify tactics such as
 		whether a post contains emotional language and teaches the user to
-		distrust posts containing emotional language. Giving the variables
-		below,
+		distrust posts containing this tactic. Giving the variables below,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight">backfires</span>.
