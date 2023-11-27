@@ -401,12 +401,18 @@
 
 <style>
 	main {
-		margin: 2em 10em;
+		margin: 2em 3em;
 	}
 
 	@media (min-width: 1200px) {
 		main {
-			margin: 2em 33em;
+			margin: 2em 13em;
+		}
+	}
+
+	@media (min-width: 1600px) {
+		main {
+			margin: 2em 21em;
 		}
 	}
 
