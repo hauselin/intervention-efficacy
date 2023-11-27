@@ -4,111 +4,99 @@
 	import RangeSlider from "svelte-range-slider-pips";
 	import "@fontsource/fira-sans";
 
-	let presets = ["OPTIMISTIC", "REALISTIC", "PESSIMISTIC"];
+	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
+	let currentPreset = "MEDIUM EFFECT";
 
-	let postsTotal = 10000;
+	let postsTotal = 1000;
 
-	let propTrue = [0.85];
-	let propFalse = [1 - propTrue[0]];
-	let postsTrue = postsTotal * propTrue[0];
-	let postsFalse = postsTotal * propFalse[0];
+	// effect size
+	let percReduceTrue = [10];
+	let percReduceFalse = percReduceTrue;
+	let effectSmall = [5];
+	let effectMedium = [10];
+	let effectLarge = [25];
 
-	// expose to true/false content
-	let propExposeTrue = [0.7];
-	let propExposeFalse = [0.3];
-	let postsExposeTrue = postsTrue * propExposeTrue[0];
-	let postsExposeFalse = postsFalse * propExposeFalse[0];
+	if (currentPreset == "SMALL EFFECT") {
+		percReduceTrue = effectSmall;
+		percReduceFalse = percReduceTrue;
+	} else if (currentPreset == "MEDIUM EFFECT") {
+		percReduceTrue = effectMedium;
+		percReduceFalse = percReduceTrue;
+	} else if (currentPreset == "LARGE EFFECT") {
+		percReduceTrue = effectLarge;
+		percReduceFalse = percReduceTrue;
+	}
 
-	// believe in true/false content
-	let propExposeBelieveTrue = [0.9];
-	let propExposeBelieveFalse = [0.6];
-	let postsExposeBelieveTrue = postsExposeTrue * propExposeBelieveTrue[0];
-	let postsExposeBelieveFalse = postsExposeFalse * propExposeBelieveFalse[0];
+	// perc true/false
+	let percTrue = [80];
+	let percFalse = [100 - percTrue[0]];
+	let postsTrue = (postsTotal * percTrue[0]) / 100;
+	let postsFalse = (postsTotal * percFalse[0]) / 100;
 
-	// proportion emotional content
-	let propExposeBelieveEmotionalTrue = [0.5];
-	let propExposeBelieveEmotionalFalse = [0.9];
-	let postsExposeBelieveEmotionalTrue =
-		postsExposeBelieveTrue * propExposeBelieveEmotionalTrue[0];
-	let postsExposeBelieveEmotionalFalse =
-		postsExposeBelieveFalse * propExposeBelieveEmotionalFalse[0];
+	// perc containing tactic
+	let percTacticFalse = [80];
+	let percTacticTrue = [40];
+	let postsTacticTrue = (postsTrue * percTacticTrue[0]) / 100;
+	let postsTacticFalse = (postsFalse * percTacticFalse[0]) / 100;
 
-	// proportion reduction in belief
-	let propExposeBelieveEmotionalReduceTrue = [0.5];
-	let propExposeBelieveEmotionalReduceFalse = [0.9];
-	let postsExposeBelieveEmotionalReduceTrue =
-		postsExposeBelieveEmotionalTrue *
-		propExposeBelieveEmotionalReduceTrue[0];
-	let postsExposeBelieveEmotionalReduceFalse =
-		postsExposeBelieveEmotionalFalse *
-		propExposeBelieveEmotionalReduceFalse[0];
+	// reduction
+	let postsTacticReduceFalse = percReduceFalse[0] * postsTacticFalse;
+	let postsTacticReduceTrue = percReduceTrue[0] * postsTacticTrue;
 
-	let postsReduceDifference =
-		postsExposeBelieveEmotionalReduceTrue -
-		postsExposeBelieveEmotionalReduceFalse;
-	let postsReduceTotal =
-		postsExposeBelieveEmotionalReduceTrue +
-		postsExposeBelieveEmotionalReduceFalse;
-	let postReduceDifferenceRelative =
-		postsExposeBelieveEmotionalReduceTrue /
-		postsExposeBelieveEmotionalReduceFalse;
 	$: {
-		propFalse = [1 - propTrue[0]];
-		postsTrue = parseInt(postsTotal * propTrue[0]);
-		postsFalse = parseInt(postsTotal * propFalse[0]);
+		percReduceFalse = percReduceTrue;
+		percTrue = [100 - percFalse[0]];
+		postsTrue = parseInt((postsTotal * percTrue[0]) / 100);
+		postsFalse = parseInt((postsTotal * percFalse[0]) / 100);
 
-		postsExposeTrue = (postsTrue * propExposeTrue[0]) | 0;
-		postsExposeFalse = (postsFalse * propExposeFalse[0]) | 0;
+		postsTacticTrue = parseInt((postsTrue * percTacticTrue[0]) / 100);
+		postsTacticFalse = parseInt((postsFalse * percTacticFalse[0]) / 100);
 
-		postsExposeBelieveTrue =
-			(postsExposeTrue * propExposeBelieveTrue[0]) | 0;
-		postsExposeBelieveFalse =
-			(postsExposeFalse * propExposeBelieveFalse[0]) | 0;
-
-		postsExposeBelieveEmotionalTrue =
-			(postsExposeBelieveTrue * propExposeBelieveEmotionalTrue[0]) | 0;
-		postsExposeBelieveEmotionalFalse =
-			(postsExposeBelieveFalse * propExposeBelieveEmotionalFalse[0]) | 0;
-
-		postsExposeBelieveEmotionalReduceTrue =
-			(postsExposeBelieveEmotionalTrue *
-				propExposeBelieveEmotionalReduceTrue[0]) |
-			0;
-		postsExposeBelieveEmotionalReduceFalse =
-			(postsExposeBelieveEmotionalFalse *
-				propExposeBelieveEmotionalReduceFalse[0]) |
-			0;
-
-		postsReduceDifference =
-			postsExposeBelieveEmotionalReduceTrue -
-			postsExposeBelieveEmotionalReduceFalse;
-		postsReduceTotal =
-			postsExposeBelieveEmotionalReduceTrue +
-			postsExposeBelieveEmotionalReduceFalse;
-		postReduceDifferenceRelative =
-			postsExposeBelieveEmotionalReduceTrue /
-			postsExposeBelieveEmotionalReduceFalse;
+		postsTacticReduceFalse = parseInt(
+			(percReduceFalse[0] / 100) * postsTacticFalse,
+		);
+		postsTacticReduceTrue = parseInt(
+			(percReduceTrue[0] / 100) * postsTacticTrue,
+		);
 	}
 </script>
 
 <main>
 	<h2>Evaluate the Efficacy of Misinformation Interventions</h2>
-	<p>Use the sliders and the presets. Add more instructions...</p>
+
+	<p>
+		Use the sliders and the presets to see how effective an intervention is
+		in reducing belief in false information, and whether it can also
+		backfire by reducing belief in true information more so than in false
+		information.
+	</p>
 
 	<div>
 		<p>
-			For every 10,000 pieces of content, this intervention reduces belief
-			in <strong>{parseInt(postsReduceTotal)}</strong>.
-			<span class="text-emphasis-true"
-				>{parseInt(postsExposeBelieveEmotionalReduceTrue)} are true</span
+			Imagine an intervention that helps users identify whether a post
+			contains emotional language and teaches the user to distrust posts
+			containing emotional language. Giving the variables below,
+
+			{#if postsTacticReduceTrue > postsTacticReduceFalse}
+				this intervention <span class="highlight">backfires</span>.
+			{:else if postsTacticReduceFalse > postsTacticReduceTrue}
+				this intervention <span class="highlight">works</span>.
+			{:else}
+				this intervention <span class="highlight"
+					>reduces belief in false and true content to the same extent</span
+				>.
+			{/if}
+			For every
+			<span class="grey-background">{postsTotal} posts</span>, the user
+			<span class="false-background"
+				>believes
+				{postsTacticReduceFalse} fewer false posts</span
 			>
-			and
-			<span class="text-emphasis-false"
-				>{parseInt(postsExposeBelieveEmotionalReduceFalse)} are false</span
-			>, which is a difference of {parseInt(postsReduceDifference)}. This
-			intervention reduces belief in true content
-			<strong>{postReduceDifferenceRelative.toFixed(3)}x</strong> more than
-			false content.
+			and also
+			<span class="true-background"
+				>believes
+				{postsTacticReduceTrue} fewer true posts</span
+			>.
 		</p>
 		<p>ADD BARS HERE TO VISUALIZE DIFFERENCES!</p>
 	</div>
@@ -118,7 +106,13 @@
 			<tbody>
 				<tr>
 					{#each presets as preset}
-						<th class="preset-cell">{preset}</th>
+						{#if preset == currentPreset}
+							<th class="preset-cell preset-highlight"
+								>{preset}</th
+							>
+						{:else}
+							<th class="preset-cell">{preset}</th>
+						{/if}
 					{/each}
 				</tr>
 			</tbody>
@@ -128,267 +122,91 @@
 	<div class="slide-wrap">
 		<table id="t-variables">
 			<tbody>
-				<tr id="propTrue">
+				<tr id="percReduce">
 					<th class="cell-left">
-						<span
-							>In the universe of all content, what <span
-								class="text-emphasis">percent</span
-							>
-							are true?</span
-						>
+						What percentage of content with emotional language can
+						the user accurately identify as such?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
-							{parseInt(propTrue * 100)}% ({postsTrue} of {postsTotal})
+							{Number(percReduceTrue).toFixed(1)}%
 						</div>
 						<div>
 							<RangeSlider
-								bind:values={propTrue}
+								bind:values={percReduceTrue}
 								min={0}
-								max={1}
-								step={0.0001}
+								max={50}
+								step={0.1}
 								float
 							/>
 						</div>
 					</th>
 				</tr>
 
-				<tr id="propExposeTrue">
+				<tr id="percFalse">
 					<th class="cell-left">
-						<span
-							>Of all <span class="text-emphasis-true">true</span>
-							content, what
-							<span class="text-emphasis"
-								>percent do people see?
-							</span>
-						</span>
+						How much <span class="text-emphasis-false"
+							>false content</span
+						> does the user see?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
-							{parseInt(propExposeTrue * 100)}% ({postsExposeTrue}
-							of
-							{postsTrue})
+							{Number(percFalse).toFixed(1)}% ({postsFalse} of {postsTotal})
 						</div>
 						<div>
 							<RangeSlider
-								bind:values={propExposeTrue}
+								bind:values={percFalse}
 								min={0}
-								max={1}
-								step={0.0001}
+								max={100}
+								step={0.1}
 								float
 							/>
 						</div>
 					</th>
 				</tr>
 
-				<tr id="propExposeBelieveTrue">
+				<tr id="percTacticFalse">
 					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-true">true</span>
-							content people see, what
-							<span class="text-emphasis"
-								>percent do they believe?
-							</span>
-						</span>
+						How much <span class="text-emphasis-false"
+							>false content</span
+						> contains emotional language?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
-							{parseInt(propExposeBelieveTrue * 100)}% ({postsExposeBelieveTrue}
-							of
-							{postsExposeTrue})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={propExposeBelieveTrue}
-								min={0}
-								max={1}
-								step={0.0001}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="propExposeBelieveEmotionalTrue">
-					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-true">true</span>
-							content people see and believe, what
-							<span class="text-emphasis"
-								>percent contains emotional language?
-							</span>
-						</span>
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{parseInt(propExposeBelieveEmotionalTrue * 100)}% ({postsExposeBelieveEmotionalTrue}
-							of
-							{postsExposeBelieveTrue})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={propExposeBelieveEmotionalTrue}
-								min={0}
-								max={1}
-								step={0.0001}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="propExposeBelieveEmotionalReduceTrue">
-					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-true">true</span>
-							content people see and believe and contains emotional
-							language, how
-							<span class="text-emphasis"
-								>effective is the intervention in reducing
-								belief</span
-							>?
-						</span>
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{parseInt(
-								propExposeBelieveEmotionalReduceTrue * 100,
-							)}% reduction ({postsExposeBelieveEmotionalReduceTrue}
-							of
-							{postsExposeBelieveEmotionalTrue})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={propExposeBelieveEmotionalReduceTrue}
-								min={0}
-								max={1}
-								step={0.0001}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<!-- false rows -->
-
-				<tr id="propExposeFalse">
-					<th class="cell-left">
-						<span
-							>Of all <span class="text-emphasis-false"
-								>false</span
-							>
-							content, what
-							<span class="text-emphasis"
-								>percent do people see?
-							</span>
-						</span>
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{parseInt(propExposeFalse * 100)}% ({postsExposeFalse}
+							{Number(percTacticFalse).toFixed(1)}% ({postsTacticFalse}
 							of
 							{postsFalse})
 						</div>
 						<div>
 							<RangeSlider
-								bind:values={propExposeFalse}
+								bind:values={percTacticFalse}
 								min={0}
-								max={1}
-								step={0.0001}
+								max={100}
+								step={0.1}
 								float
 							/>
 						</div>
 					</th>
 				</tr>
 
-				<tr id="propExposeBelieveFalse">
+				<tr id="percTacticTrue">
 					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-false"
-								>false</span
-							>
-							content people see, what
-							<span class="text-emphasis"
-								>percent do they believe?
-							</span>
-						</span>
+						How much <span class="text-emphasis-true"
+							>true content</span
+						> contains emotional language?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
-							{parseInt(propExposeBelieveFalse * 100)}% ({postsExposeBelieveFalse}
+							{Number(percTacticTrue).toFixed(1)}% ({postsTacticTrue}
 							of
-							{postsExposeFalse})
+							{postsTrue})
 						</div>
 						<div>
 							<RangeSlider
-								bind:values={propExposeBelieveFalse}
+								bind:values={percTacticTrue}
 								min={0}
-								max={1}
-								step={0.0001}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="propExposeBelieveEmotionalFalse">
-					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-false"
-								>false</span
-							>
-							content people see and believe, what
-							<span class="text-emphasis"
-								>percent contains emotional language?
-							</span>
-						</span>
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{parseInt(propExposeBelieveEmotionalFalse * 100)}% ({postsExposeBelieveEmotionalFalse}
-							of
-							{postsExposeBelieveFalse})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={propExposeBelieveEmotionalFalse}
-								min={0}
-								max={1}
-								step={0.0001}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="propExposeBelieveEmotionalReduceFalse">
-					<th class="cell-left">
-						<span
-							>Of the <span class="text-emphasis-false"
-								>false</span
-							>
-							content people see and believe and contains emotional
-							language, how
-							<span class="text-emphasis"
-								>effective is the intervention in reducing
-								belief</span
-							>?
-						</span>
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{parseInt(
-								propExposeBelieveEmotionalReduceFalse * 100,
-							)}% reduction ({postsExposeBelieveEmotionalReduceFalse}
-							of
-							{postsExposeBelieveEmotionalFalse})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={propExposeBelieveEmotionalReduceFalse}
-								min={0}
-								max={1}
-								step={0.0001}
+								max={100}
+								step={0.1}
 								float
 							/>
 						</div>
@@ -422,6 +240,14 @@
 		}
 	}
 
+	.highlight {
+		background-color: rgba(74, 64, 212, 0.5);
+	}
+
+	.preset-highlight {
+		background-color: rgba(74, 64, 212, 0.3);
+	}
+
 	table,
 	th,
 	tr {
@@ -448,16 +274,36 @@
 	}
 
 	.text-emphasis {
-		font-weight: 700;
+		font-size: 1.1em;
+	}
+
+	.grey-background {
+		background-color: #c4cbca;
+	}
+
+	.false-background {
+		background-color: rgba(
+			219,
+			80,
+			74,
+			0.5
+		); /* #db504a with 50% transparency */
+	}
+
+	.true-background {
+		background-color: rgba(
+			86,
+			163,
+			166,
+			0.5
+		); /* #56a3a6 with 50% transparency */
 	}
 
 	.text-emphasis-false {
-		font-weight: 700;
 		color: #db504a;
 	}
 
 	.text-emphasis-true {
-		font-weight: 700;
 		color: #56a3a6;
 	}
 
