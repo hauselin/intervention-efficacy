@@ -90,7 +90,7 @@
 		const rect = element.getBoundingClientRect();
 		midpointX = rect.width / 2;
 		// midpointX = rect.right;
-		console.log(midpointX);
+		// console.log(midpointX);
 	}
 
 	onMount(() => {
