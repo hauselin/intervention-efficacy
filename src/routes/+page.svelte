@@ -64,21 +64,30 @@
 		currentPreset = preset;
 		if (preset == "SMALL EFFECT") {
 			percReduceTrue = effectSmall;
-			percReduceFalse = percReduceTrue;
 		} else if (preset == "MEDIUM EFFECT") {
 			percReduceTrue = effectMedium;
-			percReduceFalse = percReduceTrue;
 		} else if (preset == "LARGE EFFECT") {
 			percReduceTrue = effectLarge;
-			percReduceFalse = percReduceTrue;
 		}
+		percReduceFalse = percReduceTrue;
+		percTrue = [80];
+		percFalse = [100 - percTrue[0]];
+		postsTrue = (postsTotal * percTrue[0]) / 100;
+		postsFalse = (postsTotal * percFalse[0]) / 100;
+
+		percTacticFalse = [80];
+		percTacticTrue = [40];
+		postsTacticTrue = (postsTrue * percTacticTrue[0]) / 100;
+		postsTacticFalse = (postsFalse * percTacticFalse[0]) / 100;
+
+		postsTacticReduceFalse = percReduceFalse[0] * postsTacticFalse;
+		postsTacticReduceTrue = percReduceTrue[0] * postsTacticTrue;
 	};
 
 	let midpointX;
 	let element;
 	$: if (element) {
 		const rect = element.getBoundingClientRect();
-		console.log(rect);
 		midpointX = rect.width / 2;
 		// midpointX = rect.right;
 		console.log(midpointX);
