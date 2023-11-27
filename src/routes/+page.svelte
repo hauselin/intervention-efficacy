@@ -34,6 +34,8 @@
 	let postsTacticReduceFalse = percReduceFalse[0] * postsTacticFalse;
 	let postsTacticReduceTrue = percReduceTrue[0] * postsTacticTrue;
 
+	let ratio = postsTacticReduceTrue / postsTacticReduceFalse;
+
 	$: {
 		percReduceFalse = percReduceTrue;
 		percTrue = [100 - percFalse[0]];
@@ -58,6 +60,17 @@
 		postsTacticReduceTrue = parseInt(
 			(percReduceTrue[0] / 100) * postsTacticTrue,
 		);
+
+		if (postsTacticReduceTrue > postsTacticReduceFalse) {
+			ratio = postsTacticReduceTrue / postsTacticReduceFalse;
+		} else {
+			ratio = postsTacticReduceFalse / postsTacticReduceTrue;
+		}
+		if (!isFinite(ratio)) {
+			ratio = "infinitely more";
+		} else {
+			ratio = ratio.toFixed(3) + "x";
+		}
 	}
 
 	const handlePresetClick = (preset) => {
@@ -82,6 +95,8 @@
 
 		postsTacticReduceFalse = percReduceFalse[0] * postsTacticFalse;
 		postsTacticReduceTrue = percReduceTrue[0] * postsTacticTrue;
+
+		ratio = postsTacticReduceTrue / postsTacticReduceFalse;
 	};
 
 	let midpointX;
@@ -118,7 +133,8 @@
 	<p>
 		Imagine an intervention that helps users identify tactics such as
 		whether a post contains emotional language and teaches the user to
-		distrust posts containing this tactic. Giving the variables below,
+		distrust posts containing this tactic. Given the variables below and
+		assuming there are {postsTotal} posts,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight">backfires</span>.
@@ -136,17 +152,19 @@
 	{/if}
 
 	<p>
-		For every
-		<span class="grey-background">{postsTotal} posts</span>, the user
-		<span class="false-background"
-			>believes
-			{postsTacticReduceFalse} fewer false posts</span
-		>
-		and also
-		<span class="true-background"
-			>believes
-			{postsTacticReduceTrue} fewer true posts</span
-		>.
+		{#if postsTacticReduceTrue / postsTacticReduceFalse >= 1}
+			The user disbelieves <span class="grey-background text-larger">
+				{ratio}
+			</span>
+			more <span class="true-background">true</span> than
+			<span class="false-background">false</span> posts.
+		{:else}
+			The user disbelieves <span class="grey-background text-larger">
+				{ratio}
+			</span>
+			more <span class="false-background">false</span> than
+			<span class="true-background">true</span> posts.
+		{/if}
 	</p>
 
 	<div class="preset-container">
@@ -329,6 +347,10 @@
 	}
 	.grey-background {
 		background-color: #c4cbca;
+	}
+
+	.text-larger {
+		font-size: 1.4em;
 	}
 
 	.false-background {
