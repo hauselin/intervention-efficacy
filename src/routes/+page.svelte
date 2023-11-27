@@ -26,7 +26,7 @@
 
 	// perc containing tactic
 	let percTacticFalse = [80];
-	let percTacticTrue = [40];
+	let percTacticTrue = [50];
 	let postsTacticTrue = (postsTrue * percTacticTrue[0]) / 100;
 	let postsTacticFalse = (postsFalse * percTacticFalse[0]) / 100;
 
@@ -89,7 +89,7 @@
 		postsFalse = (postsTotal * percFalse[0]) / 100;
 
 		percTacticFalse = [80];
-		percTacticTrue = [40];
+		percTacticTrue = [50];
 		postsTacticTrue = (postsTrue * percTacticTrue[0]) / 100;
 		postsTacticFalse = (postsFalse * percTacticFalse[0]) / 100;
 
