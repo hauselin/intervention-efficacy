@@ -125,9 +125,9 @@
 
 	<p>
 		Use the sliders and presets to see how effective an intervention is in
-		reducing belief in false information, and whether it can backfire by
-		also reducing belief in true content more so than belief in false
-		content.
+		reducing belief in false information, and whether the intervention can
+		backfire by also reducing belief in true content more so than belief in
+		false content.
 	</p>
 
 	<p>
