@@ -124,8 +124,8 @@
 	<h2>Evaluate the Efficacy of Misinformation Interventions</h2>
 
 	<p>
-		Use the sliders and the presets to see how effective an intervention is
-		in reducing belief in false information, and whether it can backfire by
+		Use the sliders and presets to see how effective an intervention is in
+		reducing belief in false information, and whether it can backfire by
 		also reducing belief in true content more so than belief in false
 		content.
 	</p>
