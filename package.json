@@ -17,6 +17,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^5.0.8",
-		"@fontsource/fira-sans": "^5.0.17"
+		"@fontsource/fira-sans": "^5.0.17",
+		"d3-scale": "^4.0.2"
 	}
 }

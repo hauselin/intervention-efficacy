@@ -3,6 +3,8 @@
 	// https://simeydotme.github.io/svelte-range-slider-pips/en/styling/
 	import RangeSlider from "svelte-range-slider-pips";
 	import "@fontsource/fira-sans";
+	import Bar from "./Bar.svelte";
+	import { onMount } from "svelte";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -71,9 +73,30 @@
 			percReduceFalse = percReduceTrue;
 		}
 	};
+
+	let midpointX;
+	let element;
+	$: if (element) {
+		const rect = element.getBoundingClientRect();
+		console.log(rect);
+		midpointX = rect.width / 2;
+		// midpointX = rect.right;
+		console.log(midpointX);
+	}
+
+	onMount(() => {
+		const handleResize = () => {
+			if (element) {
+				const rect = element.getBoundingClientRect();
+				midpointX = rect.left + rect.width / 2;
+			}
+		};
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	});
 </script>
 
-<main>
+<main bind:this={element}>
 	<h2>Evaluate the Efficacy of Misinformation Interventions</h2>
 
 	<p>
@@ -100,7 +123,9 @@
 		{/if}
 	</p>
 
-	<p>ADD BARS HERE TO VISUALIZE DIFFERENCES!</p>
+	{#if midpointX}
+		<Bar {postsTacticReduceFalse} {postsTacticReduceTrue} {midpointX}></Bar>
+	{/if}
 
 	<p>
 		For every
@@ -294,11 +319,6 @@
 	.cell-right {
 		width: 100vw;
 	}
-
-	.text-emphasis {
-		font-size: 1.1em;
-	}
-
 	.grey-background {
 		background-color: #c4cbca;
 	}
