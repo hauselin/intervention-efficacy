@@ -14,18 +14,7 @@
 	let percReduceFalse = percReduceTrue;
 	let effectSmall = [5];
 	let effectMedium = [10];
-	let effectLarge = [25];
-
-	if (currentPreset == "SMALL EFFECT") {
-		percReduceTrue = effectSmall;
-		percReduceFalse = percReduceTrue;
-	} else if (currentPreset == "MEDIUM EFFECT") {
-		percReduceTrue = effectMedium;
-		percReduceFalse = percReduceTrue;
-	} else if (currentPreset == "LARGE EFFECT") {
-		percReduceTrue = effectLarge;
-		percReduceFalse = percReduceTrue;
-	}
+	let effectLarge = [30];
 
 	// perc true/false
 	let percTrue = [80];
@@ -46,6 +35,15 @@
 	$: {
 		percReduceFalse = percReduceTrue;
 		percTrue = [100 - percFalse[0]];
+
+		if (percReduceFalse[0] < effectMedium[0]) {
+			currentPreset = "SMALL EFFECT";
+		} else if (percReduceFalse[0] < effectLarge[0]) {
+			currentPreset = "MEDIUM EFFECT";
+		} else {
+			currentPreset = "LARGE EFFECT";
+		}
+
 		postsTrue = parseInt((postsTotal * percTrue[0]) / 100);
 		postsFalse = parseInt((postsTotal * percFalse[0]) / 100);
 
@@ -59,6 +57,20 @@
 			(percReduceTrue[0] / 100) * postsTacticTrue,
 		);
 	}
+
+	const handlePresetClick = (preset) => {
+		currentPreset = preset;
+		if (preset == "SMALL EFFECT") {
+			percReduceTrue = effectSmall;
+			percReduceFalse = percReduceTrue;
+		} else if (preset == "MEDIUM EFFECT") {
+			percReduceTrue = effectMedium;
+			percReduceFalse = percReduceTrue;
+		} else if (preset == "LARGE EFFECT") {
+			percReduceTrue = effectLarge;
+			percReduceFalse = percReduceTrue;
+		}
+	};
 </script>
 
 <main>
@@ -107,11 +119,17 @@
 				<tr>
 					{#each presets as preset}
 						{#if preset == currentPreset}
-							<th class="preset-cell preset-highlight"
+							<th
+								class="preset-cell preset-highlight"
+								on:click={() => handlePresetClick(preset)}
 								>{preset}</th
 							>
 						{:else}
-							<th class="preset-cell">{preset}</th>
+							<th
+								class="preset-cell"
+								on:click={() => handlePresetClick(preset)}
+								>{preset}</th
+							>
 						{/if}
 					{/each}
 				</tr>
@@ -319,5 +337,9 @@
 		width: 100vw;
 		text-align: center;
 		padding: 0.5em;
+	}
+
+	.preset-cell:hover {
+		cursor: pointer;
 	}
 </style>
