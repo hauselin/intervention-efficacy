@@ -66,8 +66,7 @@
 				font-size="0.8em"
 				fill="black"
 				width={postsTacticDiscern}
-				>Backfire: Disbelieves {postsTacticDiscern} more true than false
-				posts
+				>Backfire: Disbelieves {postsTacticDiscern} more true posts
 			</text>
 		{:else}
 			<rect
@@ -85,8 +84,7 @@
 				font-size="0.8em"
 				fill="black"
 				width={postsTacticDiscern}
-				>No backfire: Disbelieves {-postsTacticDiscern} more false than true
-				posts
+				>No backfire: Disbelieves {-postsTacticDiscern} more false posts
 			</text>
 		{/if}
 	</svg>
