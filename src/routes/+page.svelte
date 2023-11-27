@@ -83,35 +83,36 @@
 		information.
 	</p>
 
-	<div>
-		<p>
-			Imagine an intervention that helps users identify whether a post
-			contains emotional language and teaches the user to distrust posts
-			containing emotional language. Giving the variables below,
+	<p>
+		Imagine an intervention that helps users identify whether a post
+		contains emotional language and teaches the user to distrust posts
+		containing emotional language. Giving the variables below,
 
-			{#if postsTacticReduceTrue > postsTacticReduceFalse}
-				this intervention <span class="highlight">backfires</span>.
-			{:else if postsTacticReduceFalse > postsTacticReduceTrue}
-				this intervention <span class="highlight">works</span>.
-			{:else}
-				this intervention <span class="highlight"
-					>reduces belief in false and true content to the same extent</span
-				>.
-			{/if}
-			For every
-			<span class="grey-background">{postsTotal} posts</span>, the user
-			<span class="false-background"
-				>believes
-				{postsTacticReduceFalse} fewer false posts</span
-			>
-			and also
-			<span class="true-background"
-				>believes
-				{postsTacticReduceTrue} fewer true posts</span
+		{#if postsTacticReduceTrue > postsTacticReduceFalse}
+			this intervention <span class="highlight">backfires</span>.
+		{:else if postsTacticReduceFalse > postsTacticReduceTrue}
+			this intervention <span class="highlight">works</span>.
+		{:else}
+			this intervention <span class="highlight"
+				>reduces belief in false and true content to the same extent</span
 			>.
-		</p>
-		<p>ADD BARS HERE TO VISUALIZE DIFFERENCES!</p>
-	</div>
+		{/if}
+	</p>
+
+	<p>ADD BARS HERE TO VISUALIZE DIFFERENCES!</p>
+	<p>
+		For every
+		<span class="grey-background">{postsTotal} posts</span>, the user
+		<span class="false-background"
+			>believes
+			{postsTacticReduceFalse} fewer false posts</span
+		>
+		and also
+		<span class="true-background"
+			>believes
+			{postsTacticReduceTrue} fewer true posts</span
+		>.
+	</p>
 
 	<div class="preset-container">
 		<table id="t-presets">
@@ -141,10 +142,11 @@
 		<table id="t-variables">
 			<tbody>
 				<tr id="percReduce">
-					<th class="cell-left">
-						What percentage of content with emotional language can
-						the user accurately identify as such?
-					</th>
+					<th class="cell-left"
+						>What is the treatment effect, or the percent
+						improvement in identifying the tactic due to the
+						intervention?</th
+					>
 					<th class="cell-right">
 						<div class="text-right">
 							{Number(percReduceTrue).toFixed(1)}%
@@ -187,7 +189,7 @@
 					<th class="cell-left">
 						How much <span class="text-emphasis-false"
 							>false content</span
-						> contains emotional language?
+						> uses the tactic?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
@@ -211,7 +213,7 @@
 					<th class="cell-left">
 						How much <span class="text-emphasis-true"
 							>true content</span
-						> contains emotional language?
+						> uses the tactic?
 					</th>
 					<th class="cell-right">
 						<div class="text-right">
