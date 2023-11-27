@@ -19,10 +19,10 @@
 			y={0}
 			width={postsTacticReduceFalse}
 			height={barHeight}
-			fill="#db504a"
+			fill="rgba(219,80,74,0.4)"
 		/>
 		<text
-			x={midpointX + 5}
+			x="0"
 			y={barHeight / 2}
 			text-anchor="right"
 			alignment-baseline="middle"
@@ -37,10 +37,10 @@
 			y={barHeight * 1 * 1.1}
 			width={postsTacticReduceTrue}
 			height={barHeight}
-			fill="#56a3a6"
+			fill="rgba(86,163,166,0.5)"
 		/>
 		<text
-			x={midpointX + 5}
+			x="0"
 			y={barHeight + (barHeight * 1 * 1.2) / 2}
 			text-anchor="right"
 			alignment-baseline="middle"
@@ -56,17 +56,18 @@
 				y={barHeight * 2 * 1.1}
 				width={postsTacticDiscern}
 				height={barHeight}
-				fill="#4a40d4"
+				fill="rgba(74, 64, 212, 0.4)"
 			/>
 			<text
-				x={midpointX + 5}
+				x="0"
 				y={2 * barHeight + (barHeight * 1 * 1.4) / 2}
 				text-anchor="right"
 				alignment-baseline="middle"
 				font-size="0.8em"
 				fill="black"
 				width={postsTacticDiscern}
-				>Backfire: Disbelieves {postsTacticDiscern} more true posts
+				>Backfire: Disbelieves {postsTacticDiscern} more true than false
+				posts
 			</text>
 		{:else}
 			<rect
@@ -74,10 +75,10 @@
 				y={barHeight * 2 * 1.1}
 				width={-postsTacticDiscern}
 				height={barHeight}
-				fill="rgba(74, 64, 212, 0.2)"
+				fill="rgba(74, 64, 212, 0.1)"
 			/>
 			<text
-				x={midpointX + 5}
+				x="0"
 				y={2 * barHeight + (barHeight * 1 * 1.4) / 2}
 				text-anchor="right"
 				alignment-baseline="middle"
@@ -89,6 +90,3 @@
 		{/if}
 	</svg>
 </div>
-
-<style>
-</style>
