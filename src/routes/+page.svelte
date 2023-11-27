@@ -78,6 +78,16 @@
 			(postsExposeBelieveEmotionalFalse *
 				propExposeBelieveEmotionalReduceFalse[0]) |
 			0;
+
+		postsReduceDifference =
+			postsExposeBelieveEmotionalReduceTrue -
+			postsExposeBelieveEmotionalReduceFalse;
+		postsReduceTotal =
+			postsExposeBelieveEmotionalReduceTrue +
+			postsExposeBelieveEmotionalReduceFalse;
+		postReduceDifferenceRelative =
+			postsExposeBelieveEmotionalReduceTrue /
+			postsExposeBelieveEmotionalReduceFalse;
 	}
 </script>
 
