@@ -84,14 +84,15 @@
 	</p>
 
 	<p>
-		Imagine an intervention that helps users identify whether a post
-		contains emotional language and teaches the user to distrust posts
-		containing emotional language. Giving the variables below,
+		Imagine an intervention that helps users identify tactics such as
+		whether a post contains emotional language and teaches the user to
+		distrust posts containing emotional language. Giving the variables
+		below,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight">backfires</span>.
 		{:else if postsTacticReduceFalse > postsTacticReduceTrue}
-			this intervention <span class="highlight">works</span>.
+			this intervention <span class="highlight">does not backfire</span>.
 		{:else}
 			this intervention <span class="highlight"
 				>reduces belief in false and true content to the same extent</span
@@ -100,6 +101,7 @@
 	</p>
 
 	<p>ADD BARS HERE TO VISUALIZE DIFFERENCES!</p>
+
 	<p>
 		For every
 		<span class="grey-background">{postsTotal} posts</span>, the user
@@ -265,7 +267,7 @@
 	}
 
 	.preset-highlight {
-		background-color: rgba(74, 64, 212, 0.3);
+		background-color: rgba(74, 64, 212, 0.1);
 	}
 
 	table,
