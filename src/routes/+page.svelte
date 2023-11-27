@@ -404,7 +404,7 @@
 		margin: 2em 10em;
 	}
 
-	@media (min-width1: 1200px) {
+	@media (min-width: 1200px) {
 		main {
 			margin: 2em 33em;
 		}
