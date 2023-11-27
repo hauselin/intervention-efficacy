@@ -67,7 +67,7 @@
 			ratio = postsTacticReduceFalse / postsTacticReduceTrue;
 		}
 		if (!isFinite(ratio)) {
-			ratio = "infinitely more";
+			ratio = "infinitely";
 		} else {
 			ratio = ratio.toFixed(3) + "x";
 		}
