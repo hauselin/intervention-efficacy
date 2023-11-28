@@ -5,6 +5,7 @@
 	import "@fontsource/fira-sans";
 	import Bar from "./Bar.svelte";
 	import { onMount } from "svelte";
+	import { scale } from "svelte/transition";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -401,5 +402,6 @@
 
 	.preset-cell:hover {
 		cursor: pointer;
+		color: rgba(74, 64, 212, 1);
 	}
 </style>
