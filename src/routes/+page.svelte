@@ -137,9 +137,11 @@
 		assuming there are {postsTotal} posts,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
-			this intervention <span class="highlight">backfires</span>.
+			this intervention <span class="highlight-dark">backfires</span>.
 		{:else if postsTacticReduceFalse >= postsTacticReduceTrue}
-			this intervention <span class="highlight">does not backfire</span>.
+			this intervention <span class="highlight-light"
+				>does not backfire</span
+			>.
 			<!-- {:else}
 			this intervention <span class="highlight"
 				>reduces belief in false and true content to the same extent</span
@@ -313,8 +315,12 @@
 		}
 	}
 
-	.highlight {
+	.highlight-dark {
 		background-color: rgba(74, 64, 212, 0.5);
+	}
+
+	.highlight-light {
+		background-color: rgba(74, 64, 212, 0.1);
 	}
 
 	.preset-highlight {
