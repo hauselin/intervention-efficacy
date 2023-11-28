@@ -134,8 +134,7 @@
 	<p>
 		Imagine an intervention that helps users identify tactics such as
 		whether a post contains emotional language and teaches the user to
-		distrust posts containing this tactic. Given the variables below and
-		assuming there are {postsTotal} posts,
+		distrust posts containing this tactic. Given the variables below,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight-dark">backfires</span>.
@@ -148,6 +147,7 @@
 				>reduces belief in false and true content to the same extent</span
 			>. -->
 		{/if}
+		The numbers below assume {postsTotal} posts in total.
 	</p>
 
 	{#if midpointX}
