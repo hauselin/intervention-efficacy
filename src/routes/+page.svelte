@@ -138,12 +138,12 @@
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight">backfires</span>.
-		{:else if postsTacticReduceFalse > postsTacticReduceTrue}
+		{:else if postsTacticReduceFalse >= postsTacticReduceTrue}
 			this intervention <span class="highlight">does not backfire</span>.
-		{:else}
+			<!-- {:else}
 			this intervention <span class="highlight"
 				>reduces belief in false and true content to the same extent</span
-			>.
+			>. -->
 		{/if}
 	</p>
 
