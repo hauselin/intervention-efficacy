@@ -320,7 +320,7 @@
 	}
 
 	.highlight-light {
-		background-color: rgba(74, 64, 212, 0.1);
+		background-color: rgba(74, 64, 212, 0.2);
 	}
 
 	.preset-highlight {
