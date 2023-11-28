@@ -152,145 +152,146 @@
 
 	{#if midpointX}
 		<Bar {postsTacticReduceFalse} {postsTacticReduceTrue} {midpointX}></Bar>
+
+		<p>
+			{#if postsTacticReduceTrue / postsTacticReduceFalse >= 1}
+				The user disbelieves <span class="grey-background text-larger">
+					{ratio}
+				</span>
+				more <span class="true-background">true</span> than
+				<span class="false-background">false</span> posts.
+			{:else}
+				The user disbelieves <span class="grey-background text-larger">
+					{ratio}
+				</span>
+				more <span class="false-background">false</span> than
+				<span class="true-background">true</span> posts.
+			{/if}
+		</p>
+
+		<div class="preset-container">
+			<table id="t-presets">
+				<tbody>
+					<tr>
+						{#each presets as preset}
+							{#if preset == currentPreset}
+								<th
+									class="preset-cell preset-highlight"
+									on:click={() => handlePresetClick(preset)}
+									>{preset}</th
+								>
+							{:else}
+								<th
+									class="preset-cell"
+									on:click={() => handlePresetClick(preset)}
+									>{preset}</th
+								>
+							{/if}
+						{/each}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="slide-wrap">
+			<table id="t-variables">
+				<tbody>
+					<tr id="percReduce">
+						<th class="cell-left"
+							>What is the treatment effect, or the percent
+							improvement in identifying the tactic due to the
+							intervention?</th
+						>
+						<th class="cell-right">
+							<div class="text-right">
+								{Number(percReduceTrue).toFixed(1)}%
+							</div>
+							<div>
+								<RangeSlider
+									bind:values={percReduceTrue}
+									min={0}
+									max={50}
+									step={0.1}
+									float
+								/>
+							</div>
+						</th>
+					</tr>
+
+					<tr id="percFalse">
+						<th class="cell-left">
+							How much <span class="text-emphasis-false"
+								>false content</span
+							> does the user see?
+						</th>
+						<th class="cell-right">
+							<div class="text-right">
+								{Number(percFalse).toFixed(1)}% ({postsFalse} of
+								{postsTotal})
+							</div>
+							<div>
+								<RangeSlider
+									bind:values={percFalse}
+									min={0}
+									max={100}
+									step={0.1}
+									float
+								/>
+							</div>
+						</th>
+					</tr>
+
+					<tr id="percTacticFalse">
+						<th class="cell-left">
+							How much <span class="text-emphasis-false"
+								>false content</span
+							> uses the tactic?
+						</th>
+						<th class="cell-right">
+							<div class="text-right">
+								{Number(percTacticFalse).toFixed(1)}% ({postsTacticFalse}
+								of
+								{postsFalse})
+							</div>
+							<div>
+								<RangeSlider
+									bind:values={percTacticFalse}
+									min={0}
+									max={100}
+									step={0.1}
+									float
+								/>
+							</div>
+						</th>
+					</tr>
+
+					<tr id="percTacticTrue">
+						<th class="cell-left">
+							How much <span class="text-emphasis-true"
+								>true content</span
+							> uses the tactic?
+						</th>
+						<th class="cell-right">
+							<div class="text-right">
+								{Number(percTacticTrue).toFixed(1)}% ({postsTacticTrue}
+								of
+								{postsTrue})
+							</div>
+							<div>
+								<RangeSlider
+									bind:values={percTacticTrue}
+									min={0}
+									max={100}
+									step={0.1}
+									float
+								/>
+							</div>
+						</th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	{/if}
-
-	<p>
-		{#if postsTacticReduceTrue / postsTacticReduceFalse >= 1}
-			The user disbelieves <span class="grey-background text-larger">
-				{ratio}
-			</span>
-			more <span class="true-background">true</span> than
-			<span class="false-background">false</span> posts.
-		{:else}
-			The user disbelieves <span class="grey-background text-larger">
-				{ratio}
-			</span>
-			more <span class="false-background">false</span> than
-			<span class="true-background">true</span> posts.
-		{/if}
-	</p>
-
-	<div class="preset-container">
-		<table id="t-presets">
-			<tbody>
-				<tr>
-					{#each presets as preset}
-						{#if preset == currentPreset}
-							<th
-								class="preset-cell preset-highlight"
-								on:click={() => handlePresetClick(preset)}
-								>{preset}</th
-							>
-						{:else}
-							<th
-								class="preset-cell"
-								on:click={() => handlePresetClick(preset)}
-								>{preset}</th
-							>
-						{/if}
-					{/each}
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<div class="slide-wrap">
-		<table id="t-variables">
-			<tbody>
-				<tr id="percReduce">
-					<th class="cell-left"
-						>What is the treatment effect, or the percent
-						improvement in identifying the tactic due to the
-						intervention?</th
-					>
-					<th class="cell-right">
-						<div class="text-right">
-							{Number(percReduceTrue).toFixed(1)}%
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={percReduceTrue}
-								min={0}
-								max={50}
-								step={0.1}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="percFalse">
-					<th class="cell-left">
-						How much <span class="text-emphasis-false"
-							>false content</span
-						> does the user see?
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{Number(percFalse).toFixed(1)}% ({postsFalse} of {postsTotal})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={percFalse}
-								min={0}
-								max={100}
-								step={0.1}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="percTacticFalse">
-					<th class="cell-left">
-						How much <span class="text-emphasis-false"
-							>false content</span
-						> uses the tactic?
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{Number(percTacticFalse).toFixed(1)}% ({postsTacticFalse}
-							of
-							{postsFalse})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={percTacticFalse}
-								min={0}
-								max={100}
-								step={0.1}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-
-				<tr id="percTacticTrue">
-					<th class="cell-left">
-						How much <span class="text-emphasis-true"
-							>true content</span
-						> uses the tactic?
-					</th>
-					<th class="cell-right">
-						<div class="text-right">
-							{Number(percTacticTrue).toFixed(1)}% ({postsTacticTrue}
-							of
-							{postsTrue})
-						</div>
-						<div>
-							<RangeSlider
-								bind:values={percTacticTrue}
-								min={0}
-								max={100}
-								step={0.1}
-								float
-							/>
-						</div>
-					</th>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 </main>
 
 <style>
