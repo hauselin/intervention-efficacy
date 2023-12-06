@@ -211,7 +211,7 @@
 				</Katex>
 			</p>
 		</div> -->
-		{@html katex.renderToString("p(false|tactic)")}
+		{@html katex.renderToString("p(false|tactic) = x")}
 
 		<div class="preset-container">
 			<table id="t-presets">
