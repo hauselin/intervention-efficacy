@@ -7,6 +7,7 @@
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
 	import { math, display } from "mathlifier";
+	import Katex from "svelte-katex";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -186,7 +187,7 @@
 			{/if}
 		</p>
 
-		<!-- <div class="equations">
+		<div class="equations">
 			<p>
 				<Katex
 					>p(false|tactic) = \frac{"{p(tactic|false) \\ p(false)}"}{"{p(tactic)}"}
@@ -209,9 +210,9 @@
 					).toFixed(2)} = {p_true_tactic.toFixed(3)}
 				</Katex>
 			</p>
-		</div> -->
+		</div>
 		<!-- {@html katex.renderToString("p(false|tactic) = x")} -->
-		{@html math("ax^2+bx+c=0")}
+		<!-- {@html math("ax^2+bx+c=0")} -->
 
 		<div class="preset-container">
 			<table id="t-presets">
