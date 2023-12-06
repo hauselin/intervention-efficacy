@@ -186,7 +186,7 @@
 			{/if}
 		</p>
 
-		<div class="equations">
+		<!-- <div class="equations">
 			<p>
 				<Katex
 					>p(false|tactic) = \frac{"{p(tactic|false) \\ p(false)}"}{"{p(tactic)}"}
@@ -209,7 +209,7 @@
 					).toFixed(2)} = {p_true_tactic.toFixed(3)}
 				</Katex>
 			</p>
-		</div>
+		</div> -->
 
 		<div class="preset-container">
 			<table id="t-presets">
