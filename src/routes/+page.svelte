@@ -7,6 +7,7 @@
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
 	import Katex from "svelte-katex";
+	import katex from "katex";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -210,6 +211,7 @@
 				</Katex>
 			</p>
 		</div> -->
+		{@html katex.renderToString("p(false|tactic)")}
 
 		<div class="preset-container">
 			<table id="t-presets">
