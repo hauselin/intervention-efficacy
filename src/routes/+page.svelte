@@ -6,8 +6,7 @@
 	import Bar from "./Bar.svelte";
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
-	import Katex from "svelte-katex";
-	import katex from "katex";
+	import { math, display } from "mathlifier";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -212,6 +211,7 @@
 			</p>
 		</div> -->
 		<!-- {@html katex.renderToString("p(false|tactic) = x")} -->
+		{@html math("ax^2+bx+c=0")}
 
 		<div class="preset-container">
 			<table id="t-presets">
