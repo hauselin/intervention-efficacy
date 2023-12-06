@@ -40,12 +40,11 @@
 	let ratio = postsTacticReduceTrue / postsTacticReduceFalse;
 
 	// posterior
+	let denominator = (postsTacticTrue + postsTacticFalse) / postsTotal;
 	let p_false_tactic =
-		((percTacticFalse[0] / 100) * (percFalse[0] / 100)) /
-		((postsTacticTrue + postsTacticFalse) / postsTotal);
+		((percTacticFalse[0] / 100) * (percFalse[0] / 100)) / denominator;
 	let p_true_tactic =
-		((percTacticTrue[0] / 100) * (percTrue[0] / 100)) /
-		((postsTacticTrue + postsTacticFalse) / postsTotal);
+		((percTacticTrue[0] / 100) * (percTrue[0] / 100)) / denominator;
 
 	$: {
 		percReduceFalse = percReduceTrue;
@@ -90,6 +89,8 @@
 		p_true_tactic =
 			((percTacticTrue[0] / 100) * (percTrue[0] / 100)) /
 			((postsTacticTrue + postsTacticFalse) / postsTotal);
+
+		denominator = (postsTacticTrue + postsTacticFalse) / postsTotal;
 	}
 
 	const handlePresetClick = (preset) => {
@@ -120,8 +121,10 @@
 
 	let midpointX;
 	let element;
+	let width;
 	$: if (element) {
 		const rect = element.getBoundingClientRect();
+		width = rect.width;
 		midpointX = rect.width / 2;
 		// midpointX = rect.right;
 		// console.log(midpointX);
@@ -187,31 +190,38 @@
 		</p>
 
 		<div class="equations">
-			<p>
-				<Katex
-					>p(false|tactic) = \frac{"{p(tactic|false) \\ p(false)}"}{"{p(tactic)}"}
-					= ({(percTacticFalse / 100).toFixed(2)} \times {(
-						percFalse / 100
-					).toFixed(2)})/ {(
-						(postsTacticTrue + postsTacticFalse) /
-						postsTotal
-					).toFixed(2)} = {p_false_tactic.toFixed(3)}
-				</Katex>
-			</p>
-			<p>
-				<Katex
-					>p(true|tactic) \;\: = \frac{"{p(tactic|true) \\ p(true)}"}{"{p(tactic)}"}
-					\;\:\: = ({(percTacticTrue / 100).toFixed(2)} \times{(
-						percTrue / 100
-					).toFixed(2)})/ {(
-						(postsTacticTrue + postsTacticFalse) /
-						postsTotal
-					).toFixed(2)} = {p_true_tactic.toFixed(3)}
-				</Katex>
-			</p>
+			{#if width >= 500}
+				<p>
+					<Katex
+						>p(false|tactic) = \frac{"{p(tactic|false) \\ p(false)}"}{"{p(tactic)}"}
+						= ({(percTacticFalse / 100).toFixed(2)} \times {(
+							percFalse / 100
+						).toFixed(2)})/ {(
+							(postsTacticTrue + postsTacticFalse) /
+							postsTotal
+						).toFixed(2)} = {p_false_tactic.toFixed(3)}
+					</Katex>
+				</p>
+				<p>
+					<Katex
+						>p(true|tactic) \;\: = \frac{"{p(tactic|true) \\ p(true)}"}{"{p(tactic)}"}
+						\;\:\: = ({(percTacticTrue / 100).toFixed(2)} \times{(
+							percTrue / 100
+						).toFixed(2)})/ {(
+							(postsTacticTrue + postsTacticFalse) /
+							postsTotal
+						).toFixed(2)} = {p_true_tactic.toFixed(3)}
+					</Katex>
+				</p>
+			{:else}
+				<p>
+					<Katex
+						>p(false|tactic) = {p_false_tactic.toFixed(2)},
+					</Katex>
+					<Katex>p(true|tactic)= {p_true_tactic.toFixed(2)}</Katex>
+				</p>
+			{/if}
 		</div>
-		<!-- {@html katex.renderToString("p(false|tactic) = x")} -->
-		<!-- {@html math("ax^2+bx+c=0")} -->
 
 		<div class="preset-container">
 			<table id="t-presets">
@@ -402,7 +412,7 @@
 	}
 
 	.text-larger {
-		font-size: 1.5em;
+		font-size: 1.3em;
 	}
 
 	.false-background {
