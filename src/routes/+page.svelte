@@ -146,13 +146,13 @@
 		Use the sliders and presets to see how effective an intervention is in
 		reducing belief in false information, and whether the intervention can
 		backfire by also reducing belief in true content more so than belief in
-		false content.
+		false content. Assume {postsTotal} posts in total.
 	</p>
 
 	<p>
-		Imagine an intervention that helps users identify tactics such as
-		whether a post contains emotional language and teaches the user to
-		distrust posts containing this tactic. Given the variables below,
+		Imagine an intervention that helps users identify tactics like whether a
+		post contains emotional language and teaches users to distrust posts
+		containing this tactic. Given the variables below,
 
 		{#if postsTacticReduceTrue > postsTacticReduceFalse}
 			this intervention <span class="highlight-dark">backfires</span>.
@@ -165,13 +165,12 @@
 				>reduces belief in false and true content to the same extent</span
 			>. -->
 		{/if}
-		The numbers below assume {postsTotal} posts in total.
 	</p>
 
 	{#if midpointX}
 		<Bar {postsTacticReduceFalse} {postsTacticReduceTrue} {midpointX}></Bar>
 
-		<p>
+		<p class="result">
 			{#if postsTacticReduceTrue / postsTacticReduceFalse >= 1}
 				The user disbelieves <span class="grey-background text-larger">
 					{ratio}
@@ -453,5 +452,9 @@
 
 	.equations {
 		font-size: 0.8em;
+	}
+
+	.result {
+		margin-top: 0.5em;
 	}
 </style>
