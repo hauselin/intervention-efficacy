@@ -6,6 +6,7 @@
 	import Bar from "./Bar.svelte";
 	import { onMount } from "svelte";
 	import { scale } from "svelte/transition";
+	import Katex from "svelte-katex";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
 	let currentPreset = "MEDIUM EFFECT";
@@ -36,6 +37,14 @@
 	let postsTacticReduceTrue = percReduceTrue[0] * postsTacticTrue;
 
 	let ratio = postsTacticReduceTrue / postsTacticReduceFalse;
+
+	// posterior
+	let p_false_tactic =
+		((percTacticFalse[0] / 100) * (percFalse[0] / 100)) /
+		((postsTacticTrue + postsTacticFalse) / postsTotal);
+	let p_true_tactic =
+		((percTacticTrue[0] / 100) * (percTrue[0] / 100)) /
+		((postsTacticTrue + postsTacticFalse) / postsTotal);
 
 	$: {
 		percReduceFalse = percReduceTrue;
@@ -70,8 +79,16 @@
 		if (!isFinite(ratio)) {
 			ratio = "infinitely";
 		} else {
-			ratio = ratio.toFixed(3) + "x";
+			ratio = ratio.toFixed(2) + "x";
 		}
+
+		// posterior
+		p_false_tactic =
+			((percTacticFalse[0] / 100) * (percFalse[0] / 100)) /
+			((postsTacticTrue + postsTacticFalse) / postsTotal);
+		p_true_tactic =
+			((percTacticTrue[0] / 100) * (percTrue[0] / 100)) /
+			((postsTacticTrue + postsTacticFalse) / postsTotal);
 	}
 
 	const handlePresetClick = (preset) => {
@@ -168,6 +185,31 @@
 				<span class="true-background">true</span> posts.
 			{/if}
 		</p>
+
+		<div class="equations">
+			<p>
+				<Katex
+					>p(false|tactic) = \frac{"{p(tactic|false) \\ p(false)}"}{"{p(tactic)}"}
+					= ({(percTacticFalse / 100).toFixed(2)} \times {(
+						percFalse / 100
+					).toFixed(2)})/ {(
+						(postsTacticTrue + postsTacticFalse) /
+						postsTotal
+					).toFixed(2)} = {p_false_tactic.toFixed(3)}
+				</Katex>
+			</p>
+			<p>
+				<Katex
+					>p(true|tactic) \;\: = \frac{"{p(tactic|true) \\ p(true)}"}{"{p(tactic)}"}
+					\;\:\: = ({(percTacticTrue / 100).toFixed(2)} \times{(
+						percTrue / 100
+					).toFixed(2)})/ {(
+						(postsTacticTrue + postsTacticFalse) /
+						postsTotal
+					).toFixed(2)} = {p_true_tactic.toFixed(3)}
+				</Katex>
+			</p>
+		</div>
 
 		<div class="preset-container">
 			<table id="t-presets">
@@ -358,7 +400,7 @@
 	}
 
 	.text-larger {
-		font-size: 1.4em;
+		font-size: 1.5em;
 	}
 
 	.false-background {
@@ -404,5 +446,9 @@
 	.preset-cell:hover {
 		cursor: pointer;
 		color: rgba(74, 64, 212, 1);
+	}
+
+	.equations {
+		font-size: 0.8em;
 	}
 </style>
