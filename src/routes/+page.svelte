@@ -252,8 +252,8 @@
 				<tbody>
 					<tr id="percReduce">
 						<th class="cell-left"
-							>What is the intervention treatment effect, or the %
-							improvement in identifying the tactic?</th
+							>What is the treatment effect (% improvement in
+							identifying tactic)?</th
 						>
 						<th class="cell-right">
 							<div class="text-right">
