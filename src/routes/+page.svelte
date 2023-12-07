@@ -174,16 +174,19 @@
 		<Bar {postsTacticReduceFalse} {postsTacticReduceTrue} {midpointX}></Bar>
 
 		<p class="result">
-			{#if postsTacticReduceTrue / postsTacticReduceFalse >= 1}
+			{#if postsTacticReduceTrue / postsTacticReduceFalse > 1}
 				The user disbelieves <span class="grey-background text-larger">
 					{ratio}
 				</span>
 				more <span class="true-background">true</span> than
 				<span class="false-background">false</span> posts.
-			{:else if postsTacticReduceTrue.toFixed(0) == postsTacticReduceFalse.toFixed(0)}
-				The user disbelieves <span class="grey-background text-larger">
-					the same number of
+			{:else if Math.abs(postsTacticReduceTrue - postsTacticReduceFalse) == 0}
+				The user disbelieves the <span
+					class="grey-background text-larger"
+				>
+					same
 				</span>
+				number of
 				<span class="true-background">true</span> and
 				<span class="false-background">false</span> posts.
 			{:else if percReduceTrue[0] < 0.0001}
