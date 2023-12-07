@@ -181,10 +181,10 @@
 				more <span class="true-background">true</span> than
 				<span class="false-background">false</span> posts.
 			{:else if percReduceTrue[0] < 0.0001}
-				The user disbelieves no more <span class="false-background"
-					>false</span
+				The user disbelieves <span class="grey-background text-larger"
+					>no more</span
 				>
-				than
+				<span class="false-background">false</span> than
 				<span class="true-background">true</span> posts.
 			{:else}
 				The user disbelieves <span class="grey-background text-larger">
