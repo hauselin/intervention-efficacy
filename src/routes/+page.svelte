@@ -180,6 +180,12 @@
 				</span>
 				more <span class="true-background">true</span> than
 				<span class="false-background">false</span> posts.
+			{:else if postsTacticReduceTrue == postsTacticReduceFalse}
+				The user disbelieves <span class="grey-background text-larger">
+					the same number of
+				</span>
+				<span class="true-background">true</span> and
+				<span class="false-background">false</span> posts.
 			{:else if percReduceTrue[0] < 0.0001}
 				The user disbelieves <span class="grey-background text-larger"
 					>no more</span
