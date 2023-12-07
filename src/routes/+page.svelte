@@ -180,7 +180,7 @@
 				</span>
 				more <span class="true-background">true</span> than
 				<span class="false-background">false</span> posts.
-			{:else if postsTacticReduceTrue == postsTacticReduceFalse}
+			{:else if postsTacticReduceTrue.toFixed(0) == postsTacticReduceFalse.toFixed(0)}
 				The user disbelieves <span class="grey-background text-larger">
 					the same number of
 				</span>
