@@ -5,8 +5,6 @@
 	import "@fontsource/fira-sans";
 	import Bar from "./Bar.svelte";
 	import { onMount } from "svelte";
-	import { scale } from "svelte/transition";
-	import { math, display } from "mathlifier";
 	import Katex from "svelte-katex";
 
 	let presets = ["SMALL EFFECT", "MEDIUM EFFECT", "LARGE EFFECT"];
