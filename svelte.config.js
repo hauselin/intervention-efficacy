@@ -1,11 +1,12 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
-		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
-		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
+		// Every route sets `prerender = true` and there is no server-side code,
+		// so the whole site builds to static files. adapter-static emits plain
+		// HTML/CSS/JS with no serverless functions, which also avoids
+		// adapter-vercel's build-time Node version check.
 		adapter: adapter()
 	}
 };
